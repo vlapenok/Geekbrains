@@ -30,20 +30,38 @@ public class MainApp {
                 "Pen", "Apricot", "Monkey", "Key", "Key", "Table", "Peach", "Watermelon", "Town", "City", "Java"
         };
 
-        List<String> list = new ArrayList<>(words.length);
-        int count = 0;
-        for(String str : words) {
-            if(!list.contains(str)) {
-                list.add(str);
-                count++;
+        Set<String> wordsSet = new HashSet<>(Arrays.asList(words));
+        System.out.println(wordsSet);
+
+        //Первый способ
+        for(String w : wordsSet) {
+            int count = 0;
+            for (int i = 0; i < words.length; i++) {
+                if(w.equals(words[i])) {
+                    count++;
+                }
+            }
+            System.out.print(w + "=" + count + ", ");
+        }
+        System.out.println();
+
+        //Второй способ
+        Map<String, Integer> wordsMap = new HashMap<>();
+        for(String word : words) {
+            if(!wordsMap.containsKey(word)) {
+                wordsMap.put(word, 1);
+            } else {
+                wordsMap.put(word, wordsMap.get(word) + 1);
             }
         }
-        Collections.sort(list);
-        System.out.println(list + " - total: " + count);
+        System.out.println(wordsMap);
 
-        // Второй вариант решения
-        Set<String> set = new TreeSet<>(Arrays.asList(words));
-        System.out.println(set + " - total: " + set.size());
+        //Третий способ
+        wordsMap = new HashMap<>();
+        for(String w3 : words) {
+            wordsMap.put(w3, wordsMap.getOrDefault(w3, 0) + 1);
+        }
+        System.out.println(wordsMap);
     }
 
     public static void phoneBook() {
